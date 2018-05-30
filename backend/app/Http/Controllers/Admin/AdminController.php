@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Result;
 use App\Http\Controllers\Import\UserImport;
-use App\Http\Resources\UserCollection;
+use App\Http\Resources\AdminCollection;
 use App\Models\Permission;
 use App\Models\Role;
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -15,9 +17,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
-class UserController extends Controller
+class AdminController extends Controller
 {
-   use Result;
 
     /**
      * @api {get} /api/admin 显示管理员列表
@@ -61,8 +62,8 @@ class UserController extends Controller
         //
         $pageSize = (int)$request->input('pageSize');
         $pageSize = isset($pageSize) && $pageSize?$pageSize:10;
-        $users = User::name()->email()->paginate($pageSize);
-        return new UserCollection($users);
+        $users = Admin::name()->email()->paginate($pageSize);
+        return new AdminCollection($users);
     }
 
 
@@ -138,7 +139,7 @@ class UserController extends Controller
             $data['role'] = implode(',', $role);
         }
 
-        if (User::create($data)) {
+        if (Admin::create($data)) {
             return $this->success();
         }
     }
@@ -167,8 +168,8 @@ class UserController extends Controller
     public function show($id)
     {
         //
-       $user =  User::find($id);
-       return new \App\Http\Resources\User($user);
+       $user =  Admin::find($id);
+       return new \App\Http\Resources\Admin($user);
     }
 
     public function edit($id)
@@ -236,7 +237,7 @@ class UserController extends Controller
         } else {
             $data['role'] = implode(',', $role);
         }
-        $bool = User::where('id', $id)->update($data);
+        $bool = Admin::where('id', $id)->update($data);
         if ($bool) {
             return $this->success();
         }
@@ -270,7 +271,7 @@ class UserController extends Controller
           'status_code' => 200,
           'message' => '演示功能，暂时不提供用户删除功能'
         ], 200);
-        $user = User::find($id);
+        $user = Admin::find($id);
         if ($user->delete()) {
             return $this->success();
         } else {
@@ -301,7 +302,7 @@ class UserController extends Controller
             'message' => '系统演示，暂时不提供用户修改密码功能'
         ], 200);
         $password = $request->input('password');
-        $user = User::find($id);
+        $user = Admin::find($id);
         $user->password = bcrypt($password);
         $user->save();
         return $this->success();
@@ -433,7 +434,7 @@ class UserController extends Controller
      *  "status_code": 200
      *}
      */
-    public function getUserInfo(Request $request)
+    public function getAdminInfo(Request $request)
     {
         // 获取用户信息和用户组对应的用户权限
         // 用户权限
@@ -472,7 +473,7 @@ class UserController extends Controller
     }
 
 
-    protected  function queryData($pageSize = null, $page = 1, $name, $email){
+    protected  function queryData($pageSize = null, $page = 1){
         // 查询条件  根据姓名或者电话号码进行查询
         $offset = $pageSize * ($page - 1) == 0? 0: $pageSize * ($page - 1);
         $model = $this->getModel();
@@ -537,6 +538,6 @@ class UserController extends Controller
     protected function getModel()
     {
         // 当前控制器所对应的模型
-        return 'App\Models\User';
+        return 'App\Models\Admin';
     }
 }

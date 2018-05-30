@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Resources\SessionCollection;
 use App\Models\Session;
-use App\Teaching;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Import\SessionImport;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Tools;
 
 class SessionController extends Controller
 {
-    use Result, Tools;
+    use Tools;
 
     /**
      * @api {get} /api/session 显示学期列表

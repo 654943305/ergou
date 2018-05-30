@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Overtrue\EasySms\EasySms;
+use App\Http\Controllers\Controller;
 
 class SmsController extends Controller
 {
-    //
-    use Result;
 
     protected function sendVerifyCode($phone, $template = '54224')
     {

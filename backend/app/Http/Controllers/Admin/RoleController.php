@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\RoleRequest;
 use App\Http\Resources\RoleCollection;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
-     use Result;
     /**
      * @api {get} /api/role 显示学期列表
      * @apiGroup role
