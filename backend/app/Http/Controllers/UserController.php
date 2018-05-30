@@ -437,7 +437,7 @@ class UserController extends Controller
     {
         // 获取用户信息和用户组对应的用户权限
         // 用户权限
-        $user = $request->user();
+        $user = $request->user('admin');
         $roles = explode(',',$user['role']);
         $data = [
             'id' => $user['id'],

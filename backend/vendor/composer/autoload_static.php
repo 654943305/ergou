@@ -72,6 +72,7 @@ class ComposerStaticInit7727980464b7bbc1ff7e45846d60520b
             'Symfony\\Component\\Cache\\' => 24,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
             'SuperClosure\\' => 13,
+            'SMartins\\PassportMultiauth\\' => 27,
         ),
         'R' => 
         array (
@@ -267,6 +268,10 @@ class ComposerStaticInit7727980464b7bbc1ff7e45846d60520b
         'SuperClosure\\' => 
         array (
             0 => __DIR__ . '/..' . '/jeremeamia/SuperClosure/src',
+        ),
+        'SMartins\\PassportMultiauth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/smartins/passport-multiauth/src',
         ),
         'Ramsey\\Uuid\\' => 
         array (
@@ -523,8 +528,10 @@ class ComposerStaticInit7727980464b7bbc1ff7e45846d60520b
     );
 
     public static $classMap = array (
+        'AdminsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AdminsTableSeeder.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Admin\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\Auth\\RegisterController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -561,6 +568,7 @@ class ComposerStaticInit7727980464b7bbc1ff7e45846d60520b
         'App\\Http\\Resources\\SessionCollection' => __DIR__ . '/../..' . '/app/Http/Resources/SessionCollection.php',
         'App\\Http\\Resources\\User' => __DIR__ . '/../..' . '/app/Resources/User.php',
         'App\\Http\\Resources\\UserCollection' => __DIR__ . '/../..' . '/app/Resources/UserCollection.php',
+        'App\\Models\\Admin' => __DIR__ . '/../..' . '/app/Models/Admin.php',
         'App\\Models\\Model' => __DIR__ . '/../..' . '/app/Models/Model.php',
         'App\\Models\\Permission' => __DIR__ . '/../..' . '/app/Models/Permission.php',
         'App\\Models\\Role' => __DIR__ . '/../..' . '/app/Models/Role.php',
@@ -4288,6 +4296,14 @@ class ComposerStaticInit7727980464b7bbc1ff7e45846d60520b
         'Ramsey\\Uuid\\UuidFactoryInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidFactoryInterface.php',
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
         'RolesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/RolesTableSeeder.php',
+        'SMartins\\PassportMultiauth\\Guards\\GuardChecker' => __DIR__ . '/..' . '/smartins/passport-multiauth/src/Guards/GuardChecker.php',
+        'SMartins\\PassportMultiauth\\Http\\Middleware\\AddCustomProvider' => __DIR__ . '/..' . '/smartins/passport-multiauth/src/Http/Middleware/AddCustomProvider.php',
+        'SMartins\\PassportMultiauth\\Http\\Middleware\\ConfigAccessTokenCustomProvider' => __DIR__ . '/..' . '/smartins/passport-multiauth/src/Http/Middleware/ConfigAccessTokenCustomProvider.php',
+        'SMartins\\PassportMultiauth\\Http\\Middleware\\MultiAuthCheckForAnyScope' => __DIR__ . '/..' . '/smartins/passport-multiauth/src/Http/Middleware/MultiAuthCheckForAnyScope.php',
+        'SMartins\\PassportMultiauth\\Http\\Middleware\\MultiAuthCheckScopes' => __DIR__ . '/..' . '/smartins/passport-multiauth/src/Http/Middleware/MultiAuthCheckScopes.php',
+        'SMartins\\PassportMultiauth\\Provider' => __DIR__ . '/..' . '/smartins/passport-multiauth/src/Provider.php',
+        'SMartins\\PassportMultiauth\\ProviderRepository' => __DIR__ . '/..' . '/smartins/passport-multiauth/src/ProviderRepository.php',
+        'SMartins\\PassportMultiauth\\Providers\\MultiauthServiceProvider' => __DIR__ . '/..' . '/smartins/passport-multiauth/src/Providers/MultiauthServiceProvider.php',
         'SebastianBergmann\\CodeCoverage\\CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
         'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/Driver/Driver.php',

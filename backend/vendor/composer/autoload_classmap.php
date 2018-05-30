@@ -6,8 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AdminsTableSeeder' => $baseDir . '/database/seeds/AdminsTableSeeder.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\Admin\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Admin/Auth/LoginController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\Auth\\RegisterController' => $baseDir . '/app/Http/Controllers/Auth/RegisterController.php',
@@ -44,6 +46,7 @@ return array(
     'App\\Http\\Resources\\SessionCollection' => $baseDir . '/app/Http/Resources/SessionCollection.php',
     'App\\Http\\Resources\\User' => $baseDir . '/app/Resources/User.php',
     'App\\Http\\Resources\\UserCollection' => $baseDir . '/app/Resources/UserCollection.php',
+    'App\\Models\\Admin' => $baseDir . '/app/Models/Admin.php',
     'App\\Models\\Model' => $baseDir . '/app/Models/Model.php',
     'App\\Models\\Permission' => $baseDir . '/app/Models/Permission.php',
     'App\\Models\\Role' => $baseDir . '/app/Models/Role.php',
@@ -3771,6 +3774,14 @@ return array(
     'Ramsey\\Uuid\\UuidFactoryInterface' => $vendorDir . '/ramsey/uuid/src/UuidFactoryInterface.php',
     'Ramsey\\Uuid\\UuidInterface' => $vendorDir . '/ramsey/uuid/src/UuidInterface.php',
     'RolesTableSeeder' => $baseDir . '/database/seeds/RolesTableSeeder.php',
+    'SMartins\\PassportMultiauth\\Guards\\GuardChecker' => $vendorDir . '/smartins/passport-multiauth/src/Guards/GuardChecker.php',
+    'SMartins\\PassportMultiauth\\Http\\Middleware\\AddCustomProvider' => $vendorDir . '/smartins/passport-multiauth/src/Http/Middleware/AddCustomProvider.php',
+    'SMartins\\PassportMultiauth\\Http\\Middleware\\ConfigAccessTokenCustomProvider' => $vendorDir . '/smartins/passport-multiauth/src/Http/Middleware/ConfigAccessTokenCustomProvider.php',
+    'SMartins\\PassportMultiauth\\Http\\Middleware\\MultiAuthCheckForAnyScope' => $vendorDir . '/smartins/passport-multiauth/src/Http/Middleware/MultiAuthCheckForAnyScope.php',
+    'SMartins\\PassportMultiauth\\Http\\Middleware\\MultiAuthCheckScopes' => $vendorDir . '/smartins/passport-multiauth/src/Http/Middleware/MultiAuthCheckScopes.php',
+    'SMartins\\PassportMultiauth\\Provider' => $vendorDir . '/smartins/passport-multiauth/src/Provider.php',
+    'SMartins\\PassportMultiauth\\ProviderRepository' => $vendorDir . '/smartins/passport-multiauth/src/ProviderRepository.php',
+    'SMartins\\PassportMultiauth\\Providers\\MultiauthServiceProvider' => $vendorDir . '/smartins/passport-multiauth/src/Providers/MultiauthServiceProvider.php',
     'SebastianBergmann\\CodeCoverage\\CodeCoverage' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage.php',
     'SebastianBergmann\\CodeCoverage\\CoveredCodeNotExecutedException' => $vendorDir . '/phpunit/php-code-coverage/src/Exception/CoveredCodeNotExecutedException.php',
     'SebastianBergmann\\CodeCoverage\\Driver\\Driver' => $vendorDir . '/phpunit/php-code-coverage/src/Driver/Driver.php',

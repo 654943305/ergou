@@ -2,6 +2,10 @@
 
 namespace App\Http\Proxy;
 
+use Illuminate\Support\Facades\Auth;
+use App\Models\Admin;
+use Mockery\Exception;
+
 /**
  * Created by PhpStorm.
  * User: Administrator
@@ -23,54 +27,119 @@ class TokenProxy
 
     public function login($email, $password)
     {
-        if (auth()->attempt(['email'=> $email, 'password'=> $password])){
+        if(!empty(Admin::where('email', $email)->first())){
             return $this->proxy('password', [
                 'username' => $email,
                 'password' => $password,
+                'provider' => 'admins',
                 'scope' => '',
             ]);
+        }else{
+            return response()->json([
+                'status' => 'login error',
+                'status_code' => 421,
+                'message' => '用户不存在'
+            ],421);
         }
-        return response()->json([
-            'status' => 'login error',
-            'status_code' => 421,
-            'message' => 'Credentials not match'
-        ],421);
+
+    }
+
+    public function login_admin($email, $password)
+    {
+        if(!empty(Admin::where('email', $email)->first())){
+            return $this->proxy('password', [
+                'username' => $email,
+                'password' => $password,
+                'provider' => 'admins',
+                'scope' => '',
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'login error',
+                'status_code' => 421,
+                'message' => '用户不存在'
+            ],421);
+        }
+
     }
 
     public function proxy($grantType, array $data = [])
     {
-        $data     = array_merge($data, ['client_id'     => env('PASSPORT_CLIENT_ID'),
-                                        'client_secret' => env('PASSPORT_CLIENT_SECRET'),
-                                        'grant_type'    => $grantType
+        $data = array_merge($data, ['client_id' => env('PASSPORT_CLIENT_ID'),
+            'client_secret' => env('PASSPORT_CLIENT_SECRET'),
+            'grant_type' => $grantType
         ]);
         $website = $_SERVER['HTTP_HOST'];
-        $response = $this->http->post('http://' . $website . '/oauth/token', ['form_params' => $data
-        ]);
+        try {
+            $response = $this->http->post('http://' . $website . '/oauth/token', ['form_params' => $data
+            ]);
+        } catch (\GuzzleHttp\Exception\ClientException $e) {
+            return response()->json([
+                'status' => 'login error',
+                'status_code' => 421,
+                'message' => $e->getMessage()
+            ], 421);
+        }
+
         $token = json_decode((string)$response->getBody(), true);
-        return response()->json(['token'      => $token['access_token'],
-                                 'expires_in' => $token['expires_in'],
-                                 'status' => 'success',
-                                 'status_code' => 200
-        ])->cookie('refreshToken', $token['refresh_token'], 14400, null, null, false, true);
+        if (empty($token)) {
+            return response()->json([
+                'status' => 'login error',
+                'status_code' => 421,
+                'message' => $response
+            ], 421);
+        } else if (isset($token['error'])) {
+            return response()->json([
+                'status' => $token['error'],
+                'status_code' => 421,
+                'message' => $token['message']
+            ], 421);
+        } else {
+            return response()->json(['token' => $token['access_token'],
+                'expires_in' => $token['expires_in'],
+                'status' => 'success',
+                'status_code' => 200
+            ])->cookie('refreshToken', $token['refresh_token'], 14400, null, null, false, true);
+        }
+
     }
 
     public function logout()
     {
-        $user = auth()->guard('api')->user();
+        $user = auth()->guard('admin')->user();
         $accessToken = $user->token();
         app('db')->table('oauth_refresh_tokens')
-                         ->where('access_token_id', $accessToken->id)
-                         ->update([
-                             'revoked' => true
-                         ]);
+            ->where('access_token_id', $accessToken->id)
+            ->update([
+                'revoked' => true
+            ]);
         app('cookie')->forget('refreshToken');
         $accessToken->revoke();
         return response()->json([
-            'status' => 'success',
-            'status_code' => 200,
-            'message' => 'logout success'
+                'status' => 'success',
+                'status_code' => 200,
+                'message' => 'logout success'
             ]
-        ,200);
+            , 200);
+    }
+
+    public function logout_admin()
+    {
+        $user = auth()->guard('admin')->user();
+        $accessToken = $user->token();
+        app('db')->table('oauth_refresh_tokens')
+            ->where('access_token_id', $accessToken->id)
+            ->update([
+                'revoked' => true
+            ]);
+        app('cookie')->forget('refreshToken');
+        $accessToken->revoke();
+        return response()->json([
+                'status' => 'success',
+                'status_code' => 200,
+                'message' => 'logout success'
+            ]
+            , 200);
     }
 
     public function refresh()

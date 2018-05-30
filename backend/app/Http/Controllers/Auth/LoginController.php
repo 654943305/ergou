@@ -70,6 +70,12 @@ class LoginController extends Controller
         return $this->proxy->login(request('email'),request('password'));
     }
 
+    public function login_admin()
+    {
+        //$this->validateLogin(request());
+        return $this->proxy->login_admin(request('email'),request('password'));
+    }
+
     /**
      * @api {post} /api/logout 注销用户登陆
      * @apiGroup login
@@ -87,6 +93,11 @@ class LoginController extends Controller
     public function logout()
     {
         return $this->proxy->logout();
+    }
+
+    public function logout_admin()
+    {
+        return $this->proxy->logout_admin();
     }
     /**
      * @api {post} /api/token/refresh Token刷新
